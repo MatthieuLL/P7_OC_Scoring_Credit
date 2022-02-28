@@ -135,21 +135,14 @@ def gender_client(id_client):
 
 ######################## Fin de fonctions de création des cartes########################
 
-
-def update_shap(id_client):
+def _force_plot_html(id_client):
     explainer = shap.TreeExplainer(clf)
     shap_values = explainer.shap_values(app_test.drop(columns=['SK_ID_CURR']))
-    shap_graph = shap.force_plot(explainer.expected_value[1], shap_values[1][id_client,:], app_test.drop(columns=['SK_ID_CURR']).iloc[id_client,:])
-    
-    return shap_graph
-
-def update_shap_bis(id_client):
-    explainer = shap.TreeExplainer(clf)
-    shap_values = explainer.shap_values(app_test.drop(columns=['SK_ID_CURR']))
-    shap_graph = shap.force_plot(explainer.expected_value[1], shap_values[1][id_client,:], app_test.drop(columns=['SK_ID_CURR']).iloc[id_client,:])
+    shap_graph = shap.force_plot(explainer.expected_value[1], shap_values[1][id_client,:], app_test.drop(columns=['SK_ID_CURR']).iloc[id_client,:], matplotlib=False)
     shap_html = f"<head>{shap.getjs()}</head><body>{shap_graph.html()}</body>"
-    return render_template('displayshap.html', shap_plots = shap_html)
-
+    return html.Iframe(srcDoc=shap_html,
+                       style={"width": "100%", "height": "200px", "border": 0})
+                       
 def update_radar(id_client):
 
  
