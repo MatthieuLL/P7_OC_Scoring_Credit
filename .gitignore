@@ -3,7 +3,3 @@ P07_MODELISATION.ipynb
 *.pyc
 .env
 .DS_Store
-/data/*
-/assets/*
-/components/*
-/pages/*
