@@ -70,7 +70,7 @@ def update_feat_graph(id_client, feature):
 
 
 def update_output_drop(id_client, feature):
-    return data_graph[feature].iloc[id_client]
+    return app_test[feature].iloc[id_client]
 
 ######################## Fonction de mise à jour du graph pie  ########################
 def update_pie(id_client):
