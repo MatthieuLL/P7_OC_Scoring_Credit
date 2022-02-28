@@ -1,4 +1,4 @@
-from components.functions import update_pie, age_client, date_emploi_client, type_emploi_client, debt_ratio_client, update_shap, education_type_client, gender_client, update_shap_bis, update_feat_graph, update_output_drop, update_radar, _force_plot_html
+from components.functions import update_pie, age_client, date_emploi_client, type_emploi_client, debt_ratio_client, education_type_client, gender_client, update_feat_graph, update_output_drop, update_radar, _force_plot_html
 from dash.dependencies import Input, Output
 from app import app
 
