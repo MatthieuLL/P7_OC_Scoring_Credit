@@ -3,3 +3,4 @@ P07_MODELISATION.ipynb
 *.pyc
 .env
 .DS_Store
+/venv/*
