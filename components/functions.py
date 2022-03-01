@@ -11,9 +11,11 @@ import shap
 
 #Import des données
 clf = pickle.load(open('data/finalized_model.pkl', 'rb'))
+scaler = pickle.load(open('data/scaler.pkl', 'rb'))
 app_test = pd.read_csv("data/test_clean.csv")
 data_graph = pd.read_csv("data/features_data.csv")
 app_test = category(app_test)
+data_radar = pd.read_csv("data/data_radar.csv")
 
 #fonction de mise à  jour de la table
 
@@ -45,15 +47,16 @@ def update_feat_graph(id_client, feature):
         for key, value in dict_graph.items():
             fig.add_traces(value)
             fig.add_hline(
-                y=data_graph.iloc[id_client][feature],
+                y=app_test.iloc[id_client][feature],
+                line_dash="dot",
                 annotation_text='Client sélectionné',
                 line_color='#FFE436',
             )    
     else :
         
         fig = go.Figure()
-        fig.add_trace(go.Histogram(x=y0, marker = {'color':'lightseagreen'}))
-        fig.add_trace(go.Histogram(x=y1, marker = {'color':'indianred'}))
+        fig.add_trace(go.Histogram(x=y0, name="Solvable", marker = {'color':'lightseagreen'}))
+        fig.add_trace(go.Histogram(x=y1, name="Non Solvable", marker = {'color':'indianred'}))
         fig.update_layout(
             barmode="overlay",
             bargap=0.1
@@ -125,7 +128,7 @@ def type_emploi_client(id_client):
     return app_test['ORGANIZATION_TYPE'].iloc[id_client]
 
 def debt_ratio_client(id_client):
-    return round(app_test['DEBT_RATIO'].iloc[id_client],2)
+    return round(app_test['TERM'].iloc[id_client],2)
 
 def education_type_client(id_client):
     return app_test['NAME_EDUCATION_TYPE'].iloc[id_client]
@@ -146,24 +149,41 @@ def _force_plot_html(id_client):
 def update_radar(id_client):
 
  
-    categories = ['EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3', 'DAYS_BIRTH', 'DAYS_EMPLOYED', 'DEBT_RATIO']
+    categories = ['EXT_SOURCE_1', 'EXT_SOURCE_2', 'EXT_SOURCE_3', 'DAYS_BIRTH', 'DAYS_EMPLOYED', 'TERM']
+    scaled_current = scaler.transform(np.array(app_test.iloc[id_client][categories]).reshape(1, -1))
 
-
-    fig = go.Figure(
-    data=[
-        go.Scatterpolar(theta=categories, name='Client Sélectionné', line=dict(color='#FFE436'), connectgaps=True),
-    ],
-    layout=go.Layout(
+    fig = go.Figure()
+    fig.add_trace(
+        go.Scatterpolar(
+            r=scaled_current, 
+            theta=categories, 
+            name='Client Sélectionné', 
+            line=dict(color='#FFE436'),
+        ),
+    ),   
+    fig.add_trace(
+        go.Scatterpolar(
+            r = data_radar.loc[0],
+            theta = categories,
+            name='Client Solvable', 
+            line=dict(color='#2ecc71'),
+        )
+    ),
+    fig.add_trace(
+        go.Scatterpolar(
+            r = data_radar.loc[1],
+            theta = categories,
+            name='Client Non Solvable', 
+            line=dict(color='#e74c3c'),
+        )
+    ),
+    fig['layout'].update(
         title=go.layout.Title(text='Client Comparaison'),
         polar={'radialaxis': {'visible': True}},
-        showlegend=True
-        )
-    )
-    fig['layout'].update(
         plot_bgcolor = '#323130',
         paper_bgcolor="#323130",
         font_color = "#323130",
         font=dict(color="white"),
-    )
-
+        showlegend=True
+        )
     return fig
