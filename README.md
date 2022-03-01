@@ -7,3 +7,12 @@ Cet outil permettra de calculer la probabilité qu’un client rembourse son cr�
 
 Prêt à dépenser propose également de développer un dashboard interactif pour que les chargés 
 de relation client puissent à la fois expliquer de façon la plus transparente possible les décisions d’octroi de crédit.
+
+
+Tous les fichiers .csv sont téléchargeables à l'adresse suivante : kaggle.com/c/home-credit-default-risk/data
+
+Contenu : 
+  * 2 notebooks - Traitement des données et Modélisation
+  * Fichiers permettant de lancer le dashboard
+  * Une note méthodologique
+  * Un support de présentation
