@@ -90,7 +90,7 @@ def update_pie(id_client):
     return go.Figure(
         data=[
             go.Pie(
-                title=dict(text='THR 20%',font=dict(color='#FFE436', size=26)),
+                title=dict(text='THR: 0,2',font=dict(color='#FFE436', size=26)),
                 labels=['Solvable', "Non Solvable"],
                 values=values,
                 marker_colors=["#2ecc71", "#e74c3c"],
