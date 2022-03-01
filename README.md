@@ -11,7 +11,7 @@ de relation client puissent à la fois expliquer de façon la plus transparente 
 
 Tous les fichiers .csv sont téléchargeables à l'adresse suivante : kaggle.com/c/home-credit-default-risk/data
 
-Contenu : 
+Contenu du projet: 
   * 2 notebooks - Traitement des données et Modélisation
   * Fichiers permettant de lancer le dashboard
   * Une note méthodologique
