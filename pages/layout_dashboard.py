@@ -99,6 +99,7 @@ card_top = dbc.Row(
 #########################################Fin déclaration cartes######################################
 shap = html.Div(id='shap_explainer')
 pie_bis = dcc.Graph(id='pie_solvability')
+#status = html.Div(id='status')
 
 labels = {
     'EXT_SOURCE_1':'Source externe 1',

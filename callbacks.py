@@ -1,4 +1,4 @@
-from components.functions import update_pie, age_client, date_emploi_client, type_emploi_client, debt_ratio_client, education_type_client, gender_client, update_feat_graph, update_output_drop, update_radar, _force_plot_html
+from components.functions import update_status, update_pie, age_client, date_emploi_client, type_emploi_client, debt_ratio_client, education_type_client, gender_client, update_feat_graph, update_output_drop, update_radar, _force_plot_html
 from dash.dependencies import Input, Output
 from app import app
 
@@ -85,3 +85,10 @@ def update_shap_client(id_client):
 def update_output(id_client):
    fig = update_radar(id_client)
    return fig
+
+@app.callback(
+    Output('status', 'children'),
+    [Input('id-client', 'value')])
+def update_status_client(id_client):
+    img = update_status(id_client)
+    return img

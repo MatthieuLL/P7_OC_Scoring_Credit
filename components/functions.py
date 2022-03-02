@@ -90,7 +90,7 @@ def update_pie(id_client):
     return go.Figure(
         data=[
             go.Pie(
-                title=dict(text='THR: 0,2',font=dict(color='#FFE436', size=26)),
+                title=dict(text='THR: 20%',font=dict(color='#FFE436', size=26)),
                 labels=['Solvable', "Non Solvable"],
                 values=values,
                 marker_colors=["#2ecc71", "#e74c3c"],
@@ -100,6 +100,18 @@ def update_pie(id_client):
     layout=layout,
 )
 ######################## Fin de mise à jour du graph pie  ########################
+
+######################## Mise à jour statut crédit  ########################
+
+def update_status(id_client):
+
+    if clf.predict_proba(app_test.drop(columns='SK_ID_CURR'))[id_client][1] > 0.2:
+        status = 'url("/assets/refus.png")'
+    else:
+        status = 'url("/assets/validé.png")'
+    return status
+
+######################## Fin de mise à jour statut crédit ########################
 
 
 ######################## Fonction de création des cartes########################
@@ -153,14 +165,14 @@ def update_radar(id_client):
     scaled_current = scaler.transform(np.array(app_test.iloc[id_client][categories]).reshape(1, -1))
 
     fig = go.Figure()
-    fig.add_trace(
-        go.Scatterpolar(
-            r=scaled_current, 
-            theta=categories, 
-            name='Client Sélectionné', 
-            line=dict(color='#FFE436'),
-        ),
-    ),   
+    # fig.add_trace(
+    #     go.Scatterpolar(
+    #         r=scaled_current, 
+    #         theta=categories, 
+    #         name='Client Sélectionné', 
+    #         line=dict(color='#FFE436'),
+    #     ),
+    # ),   
     fig.add_trace(
         go.Scatterpolar(
             r = data_radar.loc[0],
