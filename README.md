@@ -17,3 +17,5 @@ Contenu du projet:
   * Fichiers permettant de lancer le dashboard
   * Une note méthodologique
   * Un support de présentation
+
+Lien Heroku du dashboard intéractif : https://p07-oc-scoring-credit.herokuapp.com/
